@@ -34,7 +34,7 @@ export const __Button: FC<__ButtonProps> = ({
   onClickHanlder,
   onLongClickHandler,
   styles,
-}: any) => {
+}: any): any => {
 
 
   if (type === "pressable") {

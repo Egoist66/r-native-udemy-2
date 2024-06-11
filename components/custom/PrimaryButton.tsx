@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         overflow: "hidden",
 
+
     },
     container: {
         backgroundColor: "#72063c",
