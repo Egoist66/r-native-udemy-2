@@ -1,10 +1,29 @@
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, TextInput, Text, View } from "react-native";
 import { PrimaryButton } from "../components/custom/PrimaryButton";
+import { useStartGame } from "../hooks/useStartGame";
+import { useEffect } from "react";
 
-export default function StartGameScreen() {
+/**
+ * Renders the StartGameScreen component.
+ *
+ * @return {JSX.Element} The rendered StartGameScreen component.
+ */
+export default function StartGameScreen(): JSX.Element {
+
+  const {
+    enteredNumber, 
+    handleEnteredNumber, 
+    resetEnteredNumber,
+    confirmEnteredNumber
+  } = useStartGame()
+
+
+
   return (
     <View style={[styles.inputContainer]}>
       <TextInput
+       onChangeText={handleEnteredNumber}
+        value={enteredNumber}
         style={[styles.textInput]}
         keyboardType="number-pad"
         placeholderTextColor={"#ddb52f"}
@@ -14,20 +33,23 @@ export default function StartGameScreen() {
         placeholder="Enter a number"
       />
 
-      <View style={[styles.controls]}>
+      <View id="controls" style={[styles.controls]}>
+       
         <View style={[styles.controlsContainer]}>
+
           <PrimaryButton
-            events={{
-              onPress: () => Alert.alert("Pressed"),
-              onLongPress: () => Alert.alert("Long Press"),
-            }}
+            text="Reset"
+            events={{onPress: resetEnteredNumber}}
             style={{ color: "#FFF", textAlign: "center", width: '100%' }}
-          >
-            Reset
-          </PrimaryButton>
+          />
+          
+         
         </View>
         <View style={[styles.controlsContainer]}>
-          <PrimaryButton style={{ color: "#FFF", textAlign: "center" }}>
+          <PrimaryButton 
+            style={{ color: "#FFF", textAlign: "center" }}
+            events={{ onPress: confirmEnteredNumber }}
+            >
             Confirm
           </PrimaryButton>
         </View>
@@ -35,6 +57,7 @@ export default function StartGameScreen() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   inputContainer: {
